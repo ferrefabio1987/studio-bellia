@@ -62,12 +62,16 @@
       feedback.className = "form-feedback";
 
       var formData = new FormData(form);
-      formData.append("access_key", "e8398d31-21a4-4522-85f0-f839fb995380");
+      var payload = Object.fromEntries(formData.entries());
+      payload.access_key = "e8398d31-21a4-4522-85f0-f839fb995380";
 
       fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: formData,
-        headers: { Accept: "application/json" }
+        body: JSON.stringify(payload),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        }
       })
         .then(function (r) { return r.json(); })
         .then(function (data) {
