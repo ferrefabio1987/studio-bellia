@@ -46,30 +46,46 @@
     reveals.forEach(function (el) { el.classList.add("in"); });
   }
 
-  // Contact form (AJAX, con fallback a POST normale se JS off)
+  // Contact form → Web3Forms (GitHub Pages non esegue PHP)
   var form = document.getElementById("contactForm");
   var feedback = document.getElementById("cf-feedback");
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       if (!form.checkValidity()) { form.reportValidity(); return; }
+
       var btn = form.querySelector("button[type='submit']");
       var oldLabel = btn.textContent;
-      btn.disabled = true; btn.textContent = "Invio in corso...";
-      feedback.textContent = ""; feedback.className = "form-feedback";
+      btn.disabled = true;
+      btn.textContent = "Invio in corso...";
+      feedback.textContent = "";
+      feedback.className = "form-feedback";
 
-      fetch(form.action, { method: "POST", body: new FormData(form), headers: { "X-Requested-With": "fetch" } })
-        .then(function (r) { return r.json().catch(function () { return { ok: r.ok, message: r.ok ? "Richiesta inviata." : "Errore nell'invio." }; }); })
+      var formData = new FormData(form);
+      formData.append("access_key", "e8398d31-21a4-4522-85f0-f839fb995380");
+
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" }
+      })
+        .then(function (r) { return r.json(); })
         .then(function (data) {
-          feedback.textContent = data.message;
-          feedback.className = "form-feedback " + (data.ok ? "ok" : "err");
-          if (data.ok) form.reset();
+          var ok = data.success === true;
+          feedback.textContent = ok
+            ? "Grazie! La tua richiesta è stata inviata. Ti ricontatteremo al più presto."
+            : (data.message || "Errore nell'invio. Riprova o chiamaci al 015 8353371.");
+          feedback.className = "form-feedback " + (ok ? "ok" : "err");
+          if (ok) form.reset();
         })
         .catch(function () {
           feedback.textContent = "Errore di rete. Riprova o chiamaci al 015 8353371.";
           feedback.className = "form-feedback err";
         })
-        .finally(function () { btn.disabled = false; btn.textContent = oldLabel; });
+        .finally(function () {
+          btn.disabled = false;
+          btn.textContent = oldLabel;
+        });
     });
   }
 
