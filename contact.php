@@ -6,7 +6,7 @@
 
 header('Content-Type: application/json; charset=utf-8');
 
-$DEST = 'infostudiobellia@gmail.com';
+$DEST = 'fabioferrero1987@gmail.com';
 
 function out($ok, $msg, $code = 200) {
     http_response_code($code);
