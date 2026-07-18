@@ -206,10 +206,7 @@
           <p>Siamo a tua disposizione per informazioni e appuntamenti.</p>
         </div>
         <div class="contact-grid">
-          <form class="contact-form reveal" id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
-            <input type="hidden" name="access_key" value="e8398d31-21a4-4522-85f0-f839fb995380" />
-            <input type="hidden" name="subject" value="Nuova richiesta dal sito Studio Bellia" />
-            <input type="hidden" name="from_name" value="Sito Studio Bellia" />
+          <form class="contact-form reveal" id="contactForm" action="contact.php" method="post" novalidate>
             <div class="form-row">
               <div class="field">
                 <label for="cf-name">Nominativo *</label>
@@ -232,8 +229,8 @@
               <input type="checkbox" name="privacy" required />
               <span>Dichiaro di aver letto l'<a href="privacy.html" target="_blank" rel="noopener">informativa sul trattamento dei dati personali</a> e acconsento al loro utilizzo per essere ricontattato.</span>
             </label>
-            <!-- honeypot anti-spam (Web3Forms) -->
-            <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true" />
+            <!-- honeypot anti-spam -->
+            <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true" />
             <div class="form-actions">
               <button type="submit" class="btn btn-primary">Invia richiesta</button>
               <button type="reset" class="btn btn-ghost" style="border-color:rgba(255,255,255,.35);color:#cfd8df;">Cancella</button>

@@ -46,7 +46,7 @@
     reveals.forEach(function (el) { el.classList.add("in"); });
   }
 
-  // Contact form → Web3Forms (GitHub Pages non esegue PHP)
+  // Contact form (AJAX → contact.php; richiede hosting PHP)
   var form = document.getElementById("contactForm");
   var feedback = document.getElementById("cf-feedback");
   if (form) {
@@ -61,26 +61,22 @@
       feedback.textContent = "";
       feedback.className = "form-feedback";
 
-      var formData = new FormData(form);
-      var payload = Object.fromEntries(formData.entries());
-      payload.access_key = "e8398d31-21a4-4522-85f0-f839fb995380";
-
-      fetch("https://api.web3forms.com/submit", {
+      fetch(form.action, {
         method: "POST",
-        body: JSON.stringify(payload),
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json"
-        }
+        body: new FormData(form),
+        headers: { "X-Requested-With": "fetch", Accept: "application/json" }
       })
-        .then(function (r) { return r.json(); })
+        .then(function (r) {
+          return r.json().catch(function () {
+            return { ok: r.ok, message: r.ok ? "Richiesta inviata." : "Errore nell'invio." };
+          });
+        })
         .then(function (data) {
-          var ok = data.success === true;
-          feedback.textContent = ok
+          feedback.textContent = data.message || (data.ok
             ? "Grazie! La tua richiesta è stata inviata. Ti ricontatteremo al più presto."
-            : (data.message || "Errore nell'invio. Riprova o chiamaci al 015 8353371.");
-          feedback.className = "form-feedback " + (ok ? "ok" : "err");
-          if (ok) form.reset();
+            : "Errore nell'invio. Riprova o chiamaci al 015 8353371.");
+          feedback.className = "form-feedback " + (data.ok ? "ok" : "err");
+          if (data.ok) form.reset();
         })
         .catch(function () {
           feedback.textContent = "Errore di rete. Riprova o chiamaci al 015 8353371.";

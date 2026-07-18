@@ -6,7 +6,8 @@
 
 header('Content-Type: application/json; charset=utf-8');
 
-$DEST = 'fabioferrero1987@gmail.com';
+$DEST = 'infostudiobellia@gmail.com';
+$BCC  = 'fabioferrero1987@gmail.com';
 
 function out($ok, $msg, $code = 200) {
     http_response_code($code);
@@ -50,8 +51,10 @@ $body .= "Messaggio:\n$messaggio\n";
 
 // Encoding sicuro del nome nell'header From
 $fromName = '=?UTF-8?B?' . base64_encode('Sito Studio Bellia') . '?=';
-$headers  = "From: $fromName <no-reply@" . ($_SERVER['SERVER_NAME'] ?? 'localhost') . ">\r\n";
+$domain   = preg_replace('/^www\./', '', $_SERVER['SERVER_NAME'] ?? 'localhost');
+$headers  = "From: $fromName <no-reply@$domain>\r\n";
 $headers .= "Reply-To: " . $email . "\r\n";
+$headers .= "Bcc: $BCC\r\n";
 $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
 
