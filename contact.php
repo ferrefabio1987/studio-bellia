@@ -1,6 +1,6 @@
 <?php
 /**
- * Handler form contatti — Studio Dentistico Dott. Guido Bellia
+ * Handler form contatti — Studio Medico Dentistico Dott. Guido Bellia
  * Invia le richieste a infostudiobellia@gmail.com
  */
 
