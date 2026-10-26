@@ -229,6 +229,10 @@
               <input type="checkbox" name="privacy" required />
               <span>Dichiaro di aver letto l'<a href="privacy.html" target="_blank" rel="noopener">informativa sul trattamento dei dati personali</a> e acconsento al loro utilizzo per essere ricontattato.</span>
             </label>
+            <div class="field field-captcha">
+              <label for="cf-captcha">Per inviare, quanto fa 1 + 9? *</label>
+              <input type="text" id="cf-captcha" name="captcha" inputmode="numeric" autocomplete="off" required />
+            </div>
             <!-- honeypot anti-spam -->
             <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true" />
             <div class="form-actions">

@@ -420,6 +420,7 @@ a { color: var(--teal-dark); text-decoration: none; }
 .contact-form .consent { display: flex; align-items: flex-start; gap: 10px; font-size: .8rem; color: #aebac3; margin-bottom: 18px; }
 .contact-form .consent input { width: auto; margin-top: 3px; flex: 0 0 auto; }
 .contact-form .consent a { color: var(--teal); }
+.contact-form .field-captcha input { max-width: 120px; }
 .contact-form .form-actions { display: flex; gap: 12px; align-items: center; }
 .contact-form button[type="submit"] { border: 0; }
 .form-feedback { font-size: .88rem; margin-top: 6px; min-height: 1.2em; }

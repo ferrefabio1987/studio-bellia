@@ -39,6 +39,9 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 if (!$privacy) {
     out(false, 'Devi accettare l\'informativa sulla privacy.', 422);
 }
+if (trim($_POST['captcha'] ?? '') !== '10') {
+    out(false, 'Risposta anti-spam non corretta. Riprova.', 422);
+}
 
 $subject = 'Nuova richiesta dal sito - ' . $nominativo;
 
